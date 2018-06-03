@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<odoo>
+
+	<record id="view_tree_trading_shipment" model="ir.ui.view">
+		<field name="name">Trading Shipment Form</field>
+		<field name="model">trading.shipment</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="partner_id"/>
+				<field name="scaduled_date"/>
+				<field name="source_document"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_filter_trading_shipment" model="ir.ui.view">
+		<field name="name">Trading Shipment Form</field>
+		<field name="model">trading.shipment</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="source_document"/>
+			</search>
+		</field>
+	</record>
+
+	<record id="view_form_trading_shipment" model="ir.ui.view">
+		<field name="name">Trading Shipment Form</field>
+		<field name="model">trading.shipment</field>
+		<field name="arch" type="xml">
+			<form string="shipment">
+				<header>
+					<button name="do_send_shipment" type="object" string="Send" class="oe_highlight"
+										
+					<field name="state" widget="statusbar" />
+				</header>
+				<sheet>
+					<group name="group_mid">
+						<group name="group_left">
+							<field name="partner_id" domain="[('customer','=',True)]" context="{'search_default_customer':1, 'show_address': 1}" options="{&quot;always_reload&quot;: True}"
+							attrs="{'invisible': [('state', '!=', 'po')],'required': [('state', '==', 'po')]}"/>
+						</group>
+						<group name="group_right">
+							<field name="scaduled_date" attrs="{'invisible': [('state', '!=', 'po')]}"/>
+							<field name="source_document" attrs="{'invisible': [('state', '!=', 'po')]}"/>
+						</group>
+					</group>
+					<group name="group_bottom">
+						<notebook>
+							<page string="Raw Materials">
+								<field name="raw_material"
+								attrs="{'readonly': [('state', '!=', 'pr')]}"/>
+							</page>							
+						</notebook>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+	<record id="view_tree_raw" model="ir.ui.view">
+        <field name="name">Product</field>
+        <field name="model">trading.product</field>
+        <field name="arch" type="xml">
+            <tree>
+				<field name="product_id"/>
+				<field name="price_product"/>
+				<field name="qty_product"/>
+			</tree>
+        </field>
+    </record>
+    
+    
+</odoo>
